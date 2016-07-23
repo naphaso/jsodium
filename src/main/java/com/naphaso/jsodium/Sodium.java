@@ -102,8 +102,8 @@ public final class Sodium {
     public static final int crypto_auth_KEYBYTES = crypto_auth_hmacsha512256_KEYBYTES;
     public static final String crypto_auth_PRIMITIVE = "hmacsha512256";
 
-    public static native int crypto_auth();
-    public static native int crypto_auth_verify();
+    public static native int crypto_auth(byte[] out, byte[] in, byte[] key);
+    public static native int crypto_auth_verify(byte[] hash, byte[] in, byte[] key);
 
 
     //#include "sodium/crypto_auth_hmacsha256.h"

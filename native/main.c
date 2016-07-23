@@ -380,8 +380,19 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1auth_1hmacsha5122
  * Method:    crypto_auth
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1auth(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1auth(JNIEnv *env, jclass clazz, jbyteArray out, jbyteArray in, jbyteArray key) {
+    unsigned char *out_bytes = GET_BYTES(out);
+    size_t in_size = GET_BYTES_SIZE(in);
+    unsigned char *in_bytes = GET_BYTES(in);
+    unsigned char *key_bytes = GET_BYTES(key);
+
+    int result = crypto_auth(out_bytes, in_bytes, in_size, key_bytes);
+
+    RELEASE_BYTES(in, in_bytes);
+    RELEASE_BYTES(out, out_bytes);
+    RELEASE_BYTES(key, key_bytes);
+
+    return result;
 }
 
 
@@ -390,9 +401,19 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1auth(JNIEnv *env,
  * Method:    crypto_auth_verify
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1auth_1verify(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1auth_1verify(JNIEnv *env, jclass clazz, jbyteArray hash, jbyteArray in, jbyteArray key) {
+  unsigned char *hash_bytes = GET_BYTES(hash);
+  size_t in_size = GET_BYTES_SIZE(in);
+  unsigned char *in_bytes = GET_BYTES(in);
+  unsigned char *key_bytes = GET_BYTES(key);
 
+  int result = crypto_auth_verify(hash_bytes, in_bytes, in_size, key_bytes);
+
+  RELEASE_BYTES(hash, hash_bytes);
+  RELEASE_BYTES(in, in_bytes);
+  RELEASE_BYTES(key, key_bytes);
+
+  return result;
 }
 
 
