@@ -1,5 +1,9 @@
 package com.naphaso.jsodium;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Locale;
 
 /**
@@ -9,16 +13,44 @@ public final class Sodium {
     static {
         String os = System.getProperty("os.name", "generic").toLowerCase(Locale.ENGLISH);
         if(os.contains("win")) {
-            // load dll
+            //loadLibrary("libjsodium.dll");
+            throw new RuntimeException("failed to load jsodium, OS isn't supported");
         } else if(os.contains("mac") || os.contains("darwin")) {
-            System.load("/Users/wolong/dev/naphaso.com/jsodium/src/main/resources/libjsodium.dylib");
+            loadLibrary("libjsodium.dylib");
         } else if(os.contains("linux")) {
-            // load soffile
+            loadLibrary("libjsodium.so");
         } else {
             throw new RuntimeException("failed to load jsodium, OS isn't supported");
         }
 
         Sodium.sodium_init();
+    }
+
+    private static void loadLibrary(String file) {
+        final String[] parts = file.split("\\.", 2);
+        final String name = parts[0];
+        final String extension = parts[1];
+
+
+        try {
+            final File tempFile = File.createTempFile(name, extension);
+            tempFile.deleteOnExit();
+
+            try(
+                    InputStream inputStream = Sodium.class.getClassLoader().getResourceAsStream(file);
+                    OutputStream outputStream = new FileOutputStream(tempFile)
+            ) {
+                byte[] buffer = new byte[4096];
+                int len;
+                while((len = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, len);
+                }
+            }
+
+            System.load(tempFile.getAbsolutePath());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     //#include "sodium/core.h"
