@@ -1,11 +1,23 @@
 package com.naphaso.jsodium;
 
+import java.util.Locale;
+
 /**
  * Created by wolong on 18/07/16.
  */
 public final class Sodium {
     static {
-        System.load("/Users/wolong/dev/naphaso.com/jsodium/src/main/resources/libjsodium.dylib");
+        String os = System.getProperty("os.name", "generic").toLowerCase(Locale.ENGLISH);
+        if(os.contains("win")) {
+            // load dll
+        } else if(os.contains("mac") || os.contains("darwin")) {
+            System.load("/Users/wolong/dev/naphaso.com/jsodium/src/main/resources/libjsodium.dylib");
+        } else if(os.contains("linux")) {
+            // load soffile
+        } else {
+            throw new RuntimeException("failed to load jsodium, OS isn't supported");
+        }
+
         Sodium.sodium_init();
     }
 
@@ -469,12 +481,12 @@ public final class Sodium {
     public static final int crypto_sign_SECRETKEYBYTES = crypto_sign_ed25519_SECRETKEYBYTES;
     public static final String crypto_sign_PRIMITIVE = "ed25519";
 
-    public static native int crypto_sign_seed_keypair();
-    public static native int crypto_sign_keypair();
-    public static native int crypto_sign();
-    public static native int crypto_sign_open();
-    public static native int crypto_sign_detached();
-    public static native int crypto_sign_verify_detached();
+    public static native int crypto_sign_seed_keypair(byte[] publicKey, byte[] secretKey, byte[] seed);
+    public static native int crypto_sign_keypair(byte[] publicKey, byte[] secretKey);
+    public static native int crypto_sign(byte[] signedMessage, byte[] message, byte[] secretKey);
+    public static native int crypto_sign_open(byte[] message, byte[] signedMessage, byte[] publicKey);
+    public static native int crypto_sign_detached(byte[] signature, byte[] message, byte[] secretkey);
+    public static native int crypto_sign_verify_detached(byte[] signature, byte[] message, byte[] publicKey);
 
     //#include "sodium/crypto_stream_aes128ctr.h"
 

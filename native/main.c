@@ -1549,8 +1549,18 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1sign_1ed25519_1sk
  * Method:    crypto_sign_seed_keypair
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1sign_1seed_1keypair(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1sign_1seed_1keypair(JNIEnv *env, jclass clazz, jbyteArray public_key, jbyteArray secret_key, jbyteArray seed) {
+    unsigned char *public_key_bytes = GET_BYTES(public_key);
+    unsigned char *secret_key_bytes = GET_BYTES(secret_key);
+    unsigned char *seed_bytes = GET_BYTES(seed);
+
+    int result = crypto_sign_seed_keypair(public_key_bytes, secret_key_bytes, seed_bytes);
+
+    RELEASE_BYTES(public_key, public_key_bytes);
+    RELEASE_BYTES(secret_key, secret_key_bytes);
+    RELEASE_BYTES(seed, seed_bytes);
+
+    return result;
 }
 
 
@@ -1559,8 +1569,16 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1sign_1seed_1keypa
  * Method:    crypto_sign_keypair
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1sign_1keypair(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1sign_1keypair(JNIEnv *env, jclass clazz, jbyteArray public_key, jbyteArray secret_key) {
+      unsigned char *public_key_bytes = GET_BYTES(public_key);
+      unsigned char *secret_key_bytes = GET_BYTES(secret_key);
+
+      int result = crypto_sign_keypair(public_key_bytes, secret_key_bytes);
+
+      RELEASE_BYTES(public_key, public_key_bytes);
+      RELEASE_BYTES(secret_key, secret_key_bytes);
+
+      return result;
 }
 
 
@@ -1569,8 +1587,24 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1sign_1keypair(JNI
  * Method:    crypto_sign
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1sign(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1sign(JNIEnv *env, jclass clazz, jbyteArray signed_message, jbyteArray message, jbyteArray secret_key) {
+    unsigned char *signed_message_bytes = GET_BYTES(signed_message);
+    size_t message_len = GET_BYTES_SIZE(message);
+    unsigned char *message_bytes = GET_BYTES(message);
+    unsigned char *secret_key_bytes = GET_BYTES(secret_key);
+    unsigned long long signed_message_result_len;
+
+    int result = crypto_sign(signed_message_bytes, &signed_message_result_len, message_bytes, message_len, secret_key_bytes);
+
+    RELEASE_BYTES(signed_message, signed_message_bytes);
+    RELEASE_BYTES(message, message_bytes);
+    RELEASE_BYTES(secret_key, secret_key_bytes);
+
+    if(result < 0) {
+        return result;
+    } else {
+        return (int) signed_message_result_len;
+    }
 }
 
 
@@ -1579,8 +1613,24 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1sign(JNIEnv *env,
  * Method:    crypto_sign_open
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1sign_1open(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1sign_1open(JNIEnv *env, jclass clazz, jbyteArray message, jbyteArray signed_message, jbyteArray public_key) {
+    unsigned char *message_bytes = GET_BYTES(message);
+    size_t signed_message_len = GET_BYTES_SIZE(signed_message);
+    unsigned char *signed_message_bytes = GET_BYTES(signed_message);
+    unsigned char *public_key_bytes = GET_BYTES(public_key);
+    unsigned long long message_len_result;
+
+    int result = crypto_sign_open(message_bytes, &message_len_result, signed_message_bytes, signed_message_len, public_key_bytes);
+
+    RELEASE_BYTES(message, message_bytes);
+    RELEASE_BYTES(signed_message, signed_message_bytes);
+    RELEASE_BYTES(public_key, public_key_bytes);
+
+    if(result < 0) {
+        return result;
+    } else {
+        return (int) message_len_result;
+    }
 }
 
 
@@ -1589,8 +1639,19 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1sign_1open(JNIEnv
  * Method:    crypto_sign_detached
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1sign_1detached(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1sign_1detached(JNIEnv *env, jclass clazz, jbyteArray signature, jbyteArray message, jbyteArray secret_key) {
+    unsigned char *signature_bytes = GET_BYTES(signature);
+    size_t message_len = GET_BYTES_SIZE(message);
+    unsigned char *message_bytes = GET_BYTES(message);
+    unsigned char *secret_key_bytes = GET_BYTES(secret_key);
+
+    int result = crypto_sign_detached(signature_bytes, NULL, message_bytes, message_len, secret_key_bytes);
+
+    RELEASE_BYTES(signature, signature_bytes);
+    RELEASE_BYTES(message, message_bytes);
+    RELEASE_BYTES(secret_key, secret_key_bytes);
+
+    return result;
 }
 
 
@@ -1599,8 +1660,19 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1sign_1detached(JN
  * Method:    crypto_sign_verify_detached
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1sign_1verify_1detached(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1sign_1verify_1detached(JNIEnv *env, jclass clazz, jbyteArray signature, jbyteArray message, jbyteArray public_key) {
+    unsigned char *signature_bytes = GET_BYTES(signature);
+    size_t message_len = GET_BYTES_SIZE(message);
+    unsigned char *message_bytes = GET_BYTES(message);
+    unsigned char *public_key_bytes = GET_BYTES(public_key);
+
+    int result = crypto_sign_verify_detached(signature_bytes, message_bytes, message_len, public_key_bytes);
+
+    RELEASE_BYTES(signature, signature_bytes);
+    RELEASE_BYTES(message, message_bytes);
+    RELEASE_BYTES(public_key, public_key_bytes);
+
+    return result;
 }
 
 
