@@ -133,12 +133,13 @@ public final class Sodium {
     public static final int crypto_auth_hmacsha512256_BYTES = 32;
     public static final int crypto_auth_hmacsha512256_KEYBYTES = 32;
 
-    public static native int crypto_auth_hmacsha512256();
-    public static native int crypto_auth_hmacsha512256_verify();
+    public static native int crypto_auth_hmacsha512256(byte[] out, byte[] in, byte[] key);
+    public static native int crypto_auth_hmacsha512256_verify(byte[] hash, byte[] in, byte[] key);
 
-    public static native int crypto_auth_hmacsha512256_init();
-    public static native int crypto_auth_hmacsha512256_update();
-    public static native int crypto_auth_hmacsha512256_final();
+    public static native int crypto_auth_hmacsha512256_statebytes();
+    public static native int crypto_auth_hmacsha512256_init(byte[] state, byte[] key);
+    public static native int crypto_auth_hmacsha512256_update(byte[] state, byte[] in);
+    public static native int crypto_auth_hmacsha512256_final(byte[] state, byte[] out);
 
     //#include "sodium/crypto_auth.h"
 
@@ -155,24 +156,26 @@ public final class Sodium {
     public static final int crypto_auth_hmacsha256_BYTES = 32;
     public static final int crypto_auth_hmacsha256_KEYBYTES = 32;
 
-    public static native int crypto_auth_hmacsha256();
-    public static native int crypto_auth_hmacsha256_verify();
+    public static native int crypto_auth_hmacsha256(byte[] out, byte[] in, byte[] key);
+    public static native int crypto_auth_hmacsha256_verify(byte[] hash, byte[] in, byte[] key);
+
     public static native int crypto_auth_hmacsha256_statebytes();
-    public static native int crypto_auth_hmacsha256_init();
-    public static native int crypto_auth_hmacsha256_update();
-    public static native int crypto_auth_hmacsha256_final();
+    public static native int crypto_auth_hmacsha256_init(byte[] state, byte[] key);
+    public static native int crypto_auth_hmacsha256_update(byte[] state, byte[] in);
+    public static native int crypto_auth_hmacsha256_final(byte[] state, byte[] out);
 
     //#include "sodium/crypto_auth_hmacsha512.h"
 
     public static final int crypto_auth_hmacsha512_BYTES = 64;
     public static final int crypto_auth_hmacsha512_keybytes = 32;
 
-    public static native int crypto_auth_hmacsha512();
-    public static native int crypto_auth_hmacsha512_verify();
+    public static native int crypto_auth_hmacsha512(byte[] out, byte[] in, byte[] key);
+    public static native int crypto_auth_hmacsha512_verify(byte[] hash, byte[] in, byte[] key);
 
-    public static native int crypto_auth_hmacsha512_init();
-    public static native int crypto_auth_hmacsha512_update();
-    public static native int crypto_auth_hmacsha512_final();
+    public static native int crypto_auth_hmacsha512_statebytes();
+    public static native int crypto_auth_hmacsha512_init(byte[] state, byte[] key);
+    public static native int crypto_auth_hmacsha512_update(byte[] state, byte[] in);
+    public static native int crypto_auth_hmacsha512_final(byte[] state, byte[] out);
 
     //#include "sodium/crypto_box_curve25519xsalsa20poly1305.h"
 
@@ -202,12 +205,12 @@ public final class Sodium {
     public static final int crypto_box_MACBYTES = crypto_box_curve25519xsalsa20poly1305_MACBYTES;
     public static final String crypto_box_PRIMITIVE = "curve25519xsalsa20poly1305";
 
-    public static native int crypto_box_seed_keypair();
-    public static native int crypto_box_keypair();
-    public static native int crypto_box_easy();
-    public static native int crypto_box_open_easy();
-    public static native int crypto_box_detached();
-    public static native int crypto_box_open_detached();
+    public static native int crypto_box_seed_keypair(byte[] privateKey, byte[] publicKey, byte[] seed);
+    public static native int crypto_box_keypair(byte[] privateKey, byte[] publicKey);
+    public static native int crypto_box_easy(byte[] ciphertext, byte[] plaintext, byte[] nonce, byte[] receiverPublicKey, byte[] senderPrivateKey);
+    public static native int crypto_box_open_easy(byte[] plaintext, byte[] ciphertext, byte[] nonce, byte[] senderPublicKey, byte[] receiverPrivateKey);
+    public static native int crypto_box_detached(byte[] ciphertext, byte[] mac, byte[] plaintext, byte[] nonce, byte[] receiverPublicKey, byte[] senderPrivateKey);
+    public static native int crypto_box_open_detached(byte[] plaintext, byte[] ciphertext, byte[] mac, byte[] nonce, byte[] senderPublicKey, byte[] receiverPrivateKey);
 
     /* -- Precomputation interface -- */
 

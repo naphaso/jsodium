@@ -330,8 +330,19 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1aead_1chacha20pol
  * Method:    crypto_auth_hmacsha512256
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1auth_1hmacsha512256(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1auth_1hmacsha512256(JNIEnv *env, jclass clazz, jbyteArray out, jbyteArray in, jbyteArray key) {
+    unsigned char *out_bytes = GET_BYTES(out);
+    size_t in_size = GET_BYTES_SIZE(in);
+    unsigned char *in_bytes = GET_BYTES(in);
+    unsigned char *key_bytes = GET_BYTES(key);
+
+    int result = crypto_auth_hmacsha512256(out_bytes, in_bytes, in_size, key_bytes);
+
+    RELEASE_BYTES(out, out_bytes);
+    RELEASE_BYTES(in, in_bytes);
+    RELEASE_BYTES(key, key_bytes);
+
+    return result;
 }
 
 
@@ -340,18 +351,46 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1auth_1hmacsha5122
  * Method:    crypto_auth_hmacsha512256_verify
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1auth_1hmacsha512256_1verify(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1auth_1hmacsha512256_1verify(JNIEnv *env, jclass clazz, jbyteArray hash, jbyteArray in, jbyteArray key) {
+    unsigned char *hash_bytes = GET_BYTES(hash);
+    size_t in_size = GET_BYTES_SIZE(in);
+    unsigned char *in_bytes = GET_BYTES(in);
+    unsigned char *key_bytes = GET_BYTES(key);
+
+    int result = crypto_auth_hmacsha512256_verify(hash_bytes, in_bytes, in_size, key_bytes);
+
+    RELEASE_BYTES(hash, hash_bytes);
+    RELEASE_BYTES(in, in_bytes);
+    RELEASE_BYTES(key, key_bytes);
+
+    return result;
 }
 
+/*
+ * Class:     com_naphaso_jsodium_Sodium
+ * Method:    crypto_auth_hmacsha512256_statebytes
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1auth_1hmacsha512256_1statebytes(JNIEnv *env, jclass clazz) {
+    return crypto_auth_hmacsha512256_statebytes();
+}
 
 /*
  * Class:     com_naphaso_jsodium_Sodium
  * Method:    crypto_auth_hmacsha512256_init
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1auth_1hmacsha512256_1init(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1auth_1hmacsha512256_1init(JNIEnv *env, jclass clazz, jbyteArray state, jbyteArray key) {
+    unsigned char *state_bytes = GET_BYTES(state);
+    size_t key_len = GET_BYTES_SIZE(key);
+    unsigned char *key_bytes = GET_BYTES(key);
+
+    int result = crypto_auth_hmacsha512256_init((crypto_auth_hmacsha512256_state *) state_bytes, key_bytes, key_len);
+
+    RELEASE_BYTES(state, state_bytes);
+    RELEASE_BYTES(key, key_bytes);
+
+    return result;
 }
 
 
@@ -360,8 +399,17 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1auth_1hmacsha5122
  * Method:    crypto_auth_hmacsha512256_update
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1auth_1hmacsha512256_1update(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1auth_1hmacsha512256_1update(JNIEnv *env, jclass clazz, jbyteArray state, jbyteArray in) {
+    unsigned char *state_bytes = GET_BYTES(state);
+    size_t in_size = GET_BYTES_SIZE(in);
+    unsigned char *in_bytes = GET_BYTES(in);
+
+    int result = crypto_auth_hmacsha512256_update((crypto_auth_hmacsha512256_state *) state_bytes, in_bytes, in_size);
+
+    RELEASE_BYTES(state, state_bytes);
+    RELEASE_BYTES(in, in_bytes);
+
+    return result;
 }
 
 
@@ -370,8 +418,16 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1auth_1hmacsha5122
  * Method:    crypto_auth_hmacsha512256_final
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1auth_1hmacsha512256_1final(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1auth_1hmacsha512256_1final(JNIEnv *env, jclass clazz, jbyteArray state, jbyteArray out) {
+    unsigned char *state_bytes = GET_BYTES(state);
+    unsigned char *out_bytes = GET_BYTES(out);
+
+    int result = crypto_auth_hmacsha512256_final((crypto_auth_hmacsha512256_state *) state_bytes, out_bytes);
+
+    RELEASE_BYTES(state, state_bytes);
+    RELEASE_BYTES(out, out_bytes);
+
+    return result;
 }
 
 
@@ -422,8 +478,19 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1auth_1verify(JNIE
  * Method:    crypto_auth_hmacsha256
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1auth_1hmacsha256(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1auth_1hmacsha256(JNIEnv *env, jclass clazz, jbyteArray out, jbyteArray in, jbyteArray key) {
+      unsigned char *out_bytes = GET_BYTES(out);
+      size_t in_size = GET_BYTES_SIZE(in);
+      unsigned char *in_bytes = GET_BYTES(in);
+      unsigned char *key_bytes = GET_BYTES(key);
+
+      int result = crypto_auth_hmacsha256(out_bytes, in_bytes, in_size, key_bytes);
+
+      RELEASE_BYTES(out, out_bytes);
+      RELEASE_BYTES(in, in_bytes);
+      RELEASE_BYTES(key, key_bytes);
+
+      return result;
 }
 
 
@@ -482,8 +549,19 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1auth_1hmacsha256_
  * Method:    crypto_auth_hmacsha512
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1auth_1hmacsha512(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1auth_1hmacsha512(JNIEnv *env, jclass clazz, jbyteArray out, jbyteArray in, jbyteArray key) {
+      unsigned char *out_bytes = GET_BYTES(out);
+      size_t in_size = GET_BYTES_SIZE(in);
+      unsigned char *in_bytes = GET_BYTES(in);
+      unsigned char *key_bytes = GET_BYTES(key);
+
+      int result = crypto_auth_hmacsha512256(out_bytes, in_bytes, in_size, key_bytes);
+
+      RELEASE_BYTES(out, out_bytes);
+      RELEASE_BYTES(in, in_bytes);
+      RELEASE_BYTES(key, key_bytes);
+
+      return result;
 }
 
 
@@ -496,6 +574,14 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1auth_1hmacsha512_
   return 0;
 }
 
+/*
+ * Class:     com_naphaso_jsodium_Sodium
+ * Method:    crypto_auth_hmacsha512_statebytes
+ * Signature: ()I
+ */
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1auth_1hmacsha512_1statebytes(JNIEnv *env, jclass clazz) {
+    return crypto_auth_hmacsha512_statebytes();
+}
 
 /*
  * Class:     com_naphaso_jsodium_Sodium
@@ -602,8 +688,18 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1curve25519xs
  * Method:    crypto_box_seed_keypair
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1seed_1keypair(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1seed_1keypair(JNIEnv *env, jclass clazz, jbyteArray private_key, jbyteArray public_key, jbyteArray seed) {
+  unsigned char *private_key_bytes = GET_BYTES(private_key);
+  unsigned char *public_key_bytes = GET_BYTES(public_key);
+  unsigned char *seed_bytes = GET_BYTES(seed);
+
+  int result = crypto_box_seed_keypair(private_key_bytes, public_key_bytes, seed_bytes);
+
+  RELEASE_BYTES(public_key, public_key_bytes);
+  RELEASE_BYTES(private_key, private_key_bytes);
+  RELEASE_BYTES(seed, seed_bytes);
+
+  return result;
 }
 
 
@@ -612,8 +708,16 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1seed_1keypai
  * Method:    crypto_box_keypair
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1keypair(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1keypair(JNIEnv *env, jclass clazz, jbyteArray private_key, jbyteArray public_key) {
+    unsigned char *private_key_bytes = GET_BYTES(private_key);
+    unsigned char *public_key_bytes = GET_BYTES(public_key);
+
+    int result = crypto_box_keypair(private_key_bytes, public_key_bytes);
+
+    RELEASE_BYTES(public_key, public_key_bytes);
+    RELEASE_BYTES(private_key, private_key_bytes);
+
+    return result;
 }
 
 
@@ -622,8 +726,23 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1keypair(JNIE
  * Method:    crypto_box_easy
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1easy(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1easy(JNIEnv *env, jclass clazz, jbyteArray ciphertext, jbyteArray plaintext, jbyteArray nonce, jbyteArray receiver_public_key, jbyteArray sender_private_key) {
+    unsigned char *ciphertext_bytes = GET_BYTES(ciphertext);
+    size_t plaintext_size = GET_BYTES_SIZE(plaintext);
+    unsigned char *plaintext_bytes = GET_BYTES(plaintext);
+    unsigned char *nonce_bytes = GET_BYTES(nonce);
+    unsigned char *receiver_public_key_bytes = GET_BYTES(receiver_public_key);
+    unsigned char *sender_private_key_bytes = GET_BYTES(sender_private_key);
+
+    int result = crypto_box_easy(ciphertext_bytes, plaintext_bytes, plaintext_size, nonce_bytes, receiver_public_key_bytes, sender_private_key_bytes);
+
+    RELEASE_BYTES(ciphertext, ciphertext_bytes);
+    RELEASE_BYTES(plaintext, plaintext_bytes);
+    RELEASE_BYTES(nonce, nonce_bytes);
+    RELEASE_BYTES(receiver_public_key, receiver_public_key_bytes);
+    RELEASE_BYTES(sender_private_key, sender_private_key_bytes);
+
+    return result;
 }
 
 
@@ -632,8 +751,23 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1easy(JNIEnv 
  * Method:    crypto_box_open_easy
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1open_1easy(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1open_1easy(JNIEnv *env, jclass clazz, jbyteArray plaintext, jbyteArray ciphertext, jbyteArray nonce, jbyteArray sender_public_key, jbyteArray receiver_private_key) {
+      unsigned char *plaintext_bytes = GET_BYTES(plaintext);
+      size_t ciphertext_size = GET_BYTES_SIZE(ciphertext);
+      unsigned char *ciphertext_bytes = GET_BYTES(ciphertext);
+      unsigned char *nonce_bytes = GET_BYTES(nonce);
+      unsigned char *sender_public_key_bytes = GET_BYTES(sender_public_key);
+      unsigned char *receiver_private_key_bytes = GET_BYTES(receiver_private_key);
+
+      int result = crypto_box_open_easy(plaintext_bytes, ciphertext_bytes, ciphertext_size, nonce_bytes, sender_public_key_bytes, receiver_private_key_bytes);
+
+      RELEASE_BYTES(plaintext, plaintext_bytes);
+      RELEASE_BYTES(ciphertext, ciphertext_bytes);
+      RELEASE_BYTES(nonce, nonce_bytes);
+      RELEASE_BYTES(sender_public_key, sender_public_key_bytes);
+      RELEASE_BYTES(receiver_private_key, receiver_private_key_bytes);
+
+      return result;
 }
 
 
@@ -642,8 +776,25 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1open_1easy(J
  * Method:    crypto_box_detached
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1detached(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1detached(JNIEnv *env, jclass clazz, jbyteArray ciphertext, jbyteArray mac, jbyteArray plaintext, jbyteArray nonce, jbyteArray receiver_public_key, jbyteArray sender_private_key) {
+      unsigned char *ciphertext_bytes = GET_BYTES(ciphertext);
+      unsigned char *mac_bytes = GET_BYTES(mac);
+      size_t plaintext_size = GET_BYTES_SIZE(plaintext);
+      unsigned char *plaintext_bytes = GET_BYTES(plaintext);
+      unsigned char *nonce_bytes = GET_BYTES(nonce);
+      unsigned char *receiver_public_key_bytes = GET_BYTES(receiver_public_key);
+      unsigned char *sender_private_key_bytes = GET_BYTES(sender_private_key);
+
+      int result = crypto_box_detached(ciphertext_bytes, mac_bytes, plaintext_bytes, plaintext_size, nonce_bytes, receiver_public_key_bytes, sender_private_key_bytes);
+
+      RELEASE_BYTES(ciphertext, ciphertext_bytes);
+      RELEASE_BYTES(mac, mac_bytes);
+      RELEASE_BYTES(plaintext, plaintext_bytes);
+      RELEASE_BYTES(nonce, nonce_bytes);
+      RELEASE_BYTES(receiver_public_key, receiver_public_key_bytes);
+      RELEASE_BYTES(sender_private_key, sender_private_key_bytes);
+
+      return result;
 }
 
 
@@ -652,8 +803,26 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1detached(JNI
  * Method:    crypto_box_open_detached
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1open_1detached(JNIEnv *env, jclass clazz) {
-  return 0;
+ //public static native int crypto_box_open_detached(byte[] plaintext, byte[] ciphertext, byte[] mac, byte[] nonce, byte[] senderPublicKey, byte[] receiverPrivateKey);
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1open_1detached(JNIEnv *env, jclass clazz, jbyteArray plaintext, jbyteArray ciphertext, jbyteArray mac, jbyteArray nonce, jbyteArray sender_public_key, jbyteArray receiver_private_key) {
+        unsigned char *plaintext_bytes = GET_BYTES(plaintext);
+        size_t ciphertext_size = GET_BYTES_SIZE(ciphertext);
+        unsigned char *ciphertext_bytes = GET_BYTES(ciphertext);
+        unsigned char *mac_bytes = GET_BYTES(mac);
+        unsigned char *nonce_bytes = GET_BYTES(nonce);
+        unsigned char *sender_public_key_bytes = GET_BYTES(sender_public_key);
+        unsigned char *receiver_private_key_bytes = GET_BYTES(receiver_private_key);
+
+        int result = crypto_box_open_detached(plaintext_bytes, ciphertext_bytes, mac_bytes, ciphertext_size, nonce_bytes, sender_public_key_bytes, receiver_private_key_bytes);
+
+        RELEASE_BYTES(plaintext, plaintext_bytes);
+        RELEASE_BYTES(ciphertext, ciphertext_bytes);
+        RELEASE_BYTES(mac, mac_bytes);
+        RELEASE_BYTES(nonce, nonce_bytes);
+        RELEASE_BYTES(sender_public_key, sender_public_key_bytes);
+        RELEASE_BYTES(receiver_private_key, receiver_private_key_bytes);
+
+        return result;
 }
 
 
