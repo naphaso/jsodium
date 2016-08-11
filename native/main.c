@@ -881,8 +881,19 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1open_1detach
  * Method:    crypto_box_seal
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1seal(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1seal(JNIEnv *env, jclass clazz, jbyteArray ciphertext, jbyteArray plaintext, jbyteArray public_key) {
+    unsigned char *ciphertext_bytes = GET_BYTES(ciphertext);
+    size_t plaintext_size = GET_BYTES_SIZE(plaintext);
+    unsigned char *plaintext_bytes = GET_BYTES(plaintext);
+    unsigned char *public_key_bytes = GET_BYTES(public_key);
+
+    int result = crypto_box_seal(ciphertext_bytes, plaintext_bytes, plaintext_size, public_key_bytes);
+
+    RELEASE_BYTES(ciphertext, ciphertext_bytes);
+    RELEASE_BYTES(plaintext, plaintext_bytes);
+    RELEASE_BYTES(public_key, public_key_bytes);
+
+    return result;
 }
 
 
@@ -891,8 +902,21 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1seal(JNIEnv 
  * Method:    crypto_box_seal_open
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1seal_1open(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1seal_1open(JNIEnv *env, jclass clazz, jbyteArray plaintext, jbyteArray ciphertext, jbyteArray public_key, jbyteArray private_key) {
+    unsigned char *plaintext_bytes = GET_BYTES(plaintext);
+    size_t ciphertext_size = GET_BYTES_SIZE(ciphertext);
+    unsigned char *ciphertext_bytes = GET_BYTES(ciphertext);
+    unsigned char *public_key_bytes = GET_BYTES(public_key);
+    unsigned char *private_key_bytes = GET_BYTES(private_key);
+
+    int result = crypto_box_seal_open(plaintext_bytes, ciphertext_bytes, ciphertext_size, public_key_bytes, private_key_bytes);
+
+    RELEASE_BYTES(plaintext, plaintext_bytes);
+    RELEASE_BYTES(ciphertext, ciphertext_bytes);
+    RELEASE_BYTES(public_key, public_key_bytes);
+    RELEASE_BYTES(private_key, private_key_bytes);
+
+    return result;
 }
 
 
