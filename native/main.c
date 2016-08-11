@@ -712,7 +712,7 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1keypair(JNIE
     unsigned char *private_key_bytes = GET_BYTES(private_key);
     unsigned char *public_key_bytes = GET_BYTES(public_key);
 
-    int result = crypto_box_keypair(private_key_bytes, public_key_bytes);
+    int result = crypto_box_keypair(public_key_bytes, private_key_bytes);
 
     RELEASE_BYTES(public_key, public_key_bytes);
     RELEASE_BYTES(private_key, private_key_bytes);
