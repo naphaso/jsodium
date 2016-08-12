@@ -831,8 +831,18 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1open_1detach
  * Method:    crypto_box_beforenm
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1beforenm(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1beforenm(JNIEnv *env, jclass clazz, jbyteArray precompute_key, jbyteArray public_key, jbyteArray private_key) {
+    unsigned char *precompute_key_bytes = GET_BYTES(precompute_key);
+    unsigned char *public_key_bytes = GET_BYTES(public_key);
+    unsigned char *private_key_bytes = GET_BYTES(private_key);
+
+    int result = crypto_box_beforenm(precompute_key_bytes, public_key_bytes, private_key_bytes);
+
+    RELEASE_BYTES(precompute_key, precompute_key_bytes);
+    RELEASE_BYTES(public_key, public_key_bytes);
+    RELEASE_BYTES(private_key, private_key_bytes);
+
+    return result;
 }
 
 
@@ -841,8 +851,21 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1beforenm(JNI
  * Method:    crypto_box_easy_afternm
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1easy_1afternm(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1easy_1afternm(JNIEnv *env, jclass clazz, jbyteArray ciphertext, jbyteArray plaintext, jbyteArray nonce, jbyteArray precompute_key) {
+    unsigned char *ciphertext_bytes = GET_BYTES(ciphertext);
+    size_t plaintext_size = GET_BYTES_SIZE(plaintext);
+    unsigned char *plaintext_bytes = GET_BYTES(plaintext);
+    unsigned char *nonce_bytes = GET_BYTES(nonce);
+    unsigned char *precompute_key_bytes = GET_BYTES(precompute_key);
+
+    int result = crypto_box_easy_afternm(ciphertext_bytes, plaintext_bytes, plaintext_size, nonce_bytes, precompute_key_bytes);
+
+    RELEASE_BYTES(ciphertext, ciphertext_bytes);
+    RELEASE_BYTES(plaintext, plaintext_bytes);
+    RELEASE_BYTES(nonce, nonce_bytes);
+    RELEASE_BYTES(precompute_key, precompute_key_bytes);
+
+    return result;
 }
 
 
@@ -851,8 +874,21 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1easy_1aftern
  * Method:    crypto_box_open_easy_afternm
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1open_1easy_1afternm(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1open_1easy_1afternm(JNIEnv *env, jclass clazz, jbyteArray plaintext, jbyteArray ciphertext, jbyteArray nonce, jbyteArray precompute_key) {
+    unsigned char *plaintext_bytes = GET_BYTES(plaintext);
+    size_t ciphertext_size = GET_BYTES_SIZE(ciphertext);
+    unsigned char *ciphertext_bytes = GET_BYTES(ciphertext);
+    unsigned char *nonce_bytes = GET_BYTES(nonce);
+    unsigned char *precompute_key_bytes = GET_BYTES(precompute_key);
+
+    int result = crypto_box_open_easy_afternm(plaintext_bytes, ciphertext_bytes, ciphertext_size, nonce_bytes, precompute_key_bytes);
+
+    RELEASE_BYTES(plaintext, plaintext_bytes);
+    RELEASE_BYTES(ciphertext, ciphertext_bytes);
+    RELEASE_BYTES(nonce, nonce_bytes);
+    RELEASE_BYTES(precompute_key, precompute_key_bytes);
+
+    return result;
 }
 
 
@@ -861,8 +897,23 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1open_1easy_1
  * Method:    crypto_box_detached_afternm
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1detached_1afternm(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1detached_1afternm(JNIEnv *env, jclass clazz, jbyteArray ciphertext, jbyteArray mac, jbyteArray plaintext, jbyteArray nonce, jbyteArray precompute_key) {
+    unsigned char *ciphertext_bytes = GET_BYTES(ciphertext);
+    unsigned char *mac_bytes = GET_BYTES(mac);
+    size_t plaintext_size = GET_BYTES_SIZE(plaintext);
+    unsigned char *plaintext_bytes = GET_BYTES(plaintext);
+    unsigned char *nonce_bytes = GET_BYTES(nonce);
+    unsigned char *precompute_key_bytes = GET_BYTES(precompute_key);
+
+    int result = crypto_box_detached_afternm(ciphertext_bytes, mac_bytes, plaintext_bytes, plaintext_size, nonce_bytes, precompute_key_bytes);
+
+    RELEASE_BYTES(ciphertext, ciphertext_bytes);
+    RELEASE_BYTES(mac, mac_bytes);
+    RELEASE_BYTES(plaintext, plaintext_bytes);
+    RELEASE_BYTES(nonce, nonce_bytes);
+    RELEASE_BYTES(precompute_key, precompute_key_bytes);
+
+    return result;
 }
 
 
@@ -871,8 +922,23 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1detached_1af
  * Method:    crypto_box_open_detached_afternm
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1open_1detached_1afternm(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1open_1detached_1afternm(JNIEnv *env, jclass clazz, jbyteArray plaintext, jbyteArray ciphertext, jbyteArray mac, jbyteArray nonce, jbyteArray precompute_key) {
+    unsigned char *plaintext_bytes = GET_BYTES(plaintext);
+    size_t ciphertext_size = GET_BYTES_SIZE(ciphertext);
+    unsigned char *ciphertext_bytes = GET_BYTES(ciphertext);
+    unsigned char *mac_bytes = GET_BYTES(mac);
+    unsigned char *nonce_bytes = GET_BYTES(nonce);
+    unsigned char *precompute_key_bytes = GET_BYTES(precompute_key);
+
+    int result = crypto_box_open_detached_afternm(plaintext_bytes, ciphertext_bytes, mac_bytes, ciphertext_size, nonce_bytes, precompute_key_bytes);
+
+    RELEASE_BYTES(plaintext, plaintext_bytes);
+    RELEASE_BYTES(ciphertext, ciphertext_bytes);
+    RELEASE_BYTES(mac, mac_bytes);
+    RELEASE_BYTES(nonce, nonce_bytes);
+    RELEASE_BYTES(precompute_key, precompute_key_bytes);
+
+    return result;
 }
 
 
@@ -965,8 +1031,20 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1box_1open_1aftern
  * Method:    crypto_core_hsalsa20
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1core_1hsalsa20(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1core_1hsalsa20(JNIEnv *env, jclass clazz, jbyteArray out, jbyteArray in, jbyteArray key, jbyteArray constb) {
+    unsigned char *out_bytes = GET_BYTES(out);
+    unsigned char *in_bytes = GET_BYTES(in);
+    unsigned char *key_bytes = GET_BYTES(key);
+    unsigned char *constb_bytes = GET_BYTES(constb);
+
+    int result = crypto_core_hsalsa20(out_bytes, in_bytes, key_bytes, constb_bytes);
+
+    RELEASE_BYTES(out, out_bytes);
+    RELEASE_BYTES(in, in_bytes);
+    RELEASE_BYTES(key, key_bytes);
+    RELEASE_BYTES(constb, constb_bytes);
+
+    return result;
 }
 
 
@@ -975,8 +1053,20 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1core_1hsalsa20(JN
  * Method:    crypto_core_hchacha20
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1core_1hchacha20(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1core_1hchacha20(JNIEnv *env, jclass clazz, jbyteArray out, jbyteArray in, jbyteArray key, jbyteArray constb) {
+    unsigned char *out_bytes = GET_BYTES(out);
+    unsigned char *in_bytes = GET_BYTES(in);
+    unsigned char *key_bytes = GET_BYTES(key);
+    unsigned char *constb_bytes = GET_BYTES(constb);
+
+    int result = crypto_core_hchacha20(out_bytes, in_bytes, key_bytes, constb_bytes);
+
+    RELEASE_BYTES(out, out_bytes);
+    RELEASE_BYTES(in, in_bytes);
+    RELEASE_BYTES(key, key_bytes);
+    RELEASE_BYTES(constb, constb_bytes);
+
+    return result;
 }
 
 
@@ -985,8 +1075,20 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1core_1hchacha20(J
  * Method:    crypto_core_salsa20
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1core_1salsa20(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1core_1salsa20(JNIEnv *env, jclass clazz, jbyteArray out, jbyteArray in, jbyteArray key, jbyteArray constb) {
+    unsigned char *out_bytes = GET_BYTES(out);
+    unsigned char *in_bytes = GET_BYTES(in);
+    unsigned char *key_bytes = GET_BYTES(key);
+    unsigned char *constb_bytes = GET_BYTES(constb);
+
+    int result = crypto_core_salsa20(out_bytes, in_bytes, key_bytes, constb_bytes);
+
+    RELEASE_BYTES(out, out_bytes);
+    RELEASE_BYTES(in, in_bytes);
+    RELEASE_BYTES(key, key_bytes);
+    RELEASE_BYTES(constb, constb_bytes);
+
+    return result;
 }
 
 
@@ -995,8 +1097,20 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1core_1salsa20(JNI
  * Method:    crypto_core_salsa2012
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1core_1salsa2012(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1core_1salsa2012(JNIEnv *env, jclass clazz, jbyteArray out, jbyteArray in, jbyteArray key, jbyteArray constb) {
+    unsigned char *out_bytes = GET_BYTES(out);
+    unsigned char *in_bytes = GET_BYTES(in);
+    unsigned char *key_bytes = GET_BYTES(key);
+    unsigned char *constb_bytes = GET_BYTES(constb);
+
+    int result = crypto_core_salsa2012(out_bytes, in_bytes, key_bytes, constb_bytes);
+
+    RELEASE_BYTES(out, out_bytes);
+    RELEASE_BYTES(in, in_bytes);
+    RELEASE_BYTES(key, key_bytes);
+    RELEASE_BYTES(constb, constb_bytes);
+
+    return result;
 }
 
 
@@ -1005,8 +1119,20 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1core_1salsa2012(J
  * Method:    crypto_core_salsa208
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1core_1salsa208(JNIEnv *env, jclass clazz) {
-  return 0;
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1core_1salsa208(JNIEnv *env, jclass clazz, jbyteArray out, jbyteArray in, jbyteArray key, jbyteArray constb) {
+    unsigned char *out_bytes = GET_BYTES(out);
+    unsigned char *in_bytes = GET_BYTES(in);
+    unsigned char *key_bytes = GET_BYTES(key);
+    unsigned char *constb_bytes = GET_BYTES(constb);
+
+    int result = crypto_core_salsa208(out_bytes, in_bytes, key_bytes, constb_bytes);
+
+    RELEASE_BYTES(out, out_bytes);
+    RELEASE_BYTES(in, in_bytes);
+    RELEASE_BYTES(key, key_bytes);
+    RELEASE_BYTES(constb, constb_bytes);
+
+    return result;
 }
 
 
