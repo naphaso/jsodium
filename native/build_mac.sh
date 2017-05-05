@@ -1,7 +1,7 @@
 #!/bin/sh
 
-gcc -c -I../libsodium/src/libsodium/include -I$JAVA_HOME/include/ -I$JAVA_HOME/include/darwin/ main.c
-gcc -dynamiclib -o ../src/main/resources/libjsodium.dylib main.o \
+gcc -v -c -I../libsodium/src/libsodium/include -I$JAVA_HOME/include/ -I$JAVA_HOME/include/darwin/ main.c
+gcc -v -dynamiclib -o ../src/main/resources/libjsodium.dylib main.o \
     lib/libsodium.a \
     lib/libaesni.a \
     lib/libavx2.a \

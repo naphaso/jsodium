@@ -77,13 +77,13 @@ public final class Sodium {
                                                             byte[] nonce,
                                                             byte[] key);
 
-    public static native int crypto_aead_aes256gcm_encrypt_detached();
-    public static native int crypto_aead_aes256gcm_decrypt_detached();
-    public static native int crypto_aead_aes256gcm_beforenm();
-    public static native int crypto_aead_aes256gcm_encrypt_afternm();
-    public static native int crypto_aead_aes256gcm_decrypt_afternm();
-    public static native int crypto_aead_aes256gcm_encrypt_detached_afternm();
-    public static native int crypto_aead_aes256gcm_decrypt_detached_afternm();
+    // public static native int crypto_aead_aes256gcm_encrypt_detached();
+   //public static native int crypto_aead_aes256gcm_decrypt_detached();
+    //public static native int crypto_aead_aes256gcm_beforenm();
+    //public static native int crypto_aead_aes256gcm_encrypt_afternm();
+    //public static native int crypto_aead_aes256gcm_decrypt_afternm();
+    //public static native int crypto_aead_aes256gcm_encrypt_detached_afternm();
+    //public static native int crypto_aead_aes256gcm_decrypt_detached_afternm();
 
 
     //#include "sodium/crypto_aead_chacha20poly1305.h"
@@ -102,8 +102,8 @@ public final class Sodium {
                                                                        byte[] publicMessage,
                                                                        byte[] nonce,
                                                                        byte[] key);
-    public static native int crypto_aead_chacha20poly1305_ietf_encrypt_detached();
-    public static native int crypto_aead_chacha20poly1305_ietf_decrypt_detached();
+    //public static native int crypto_aead_chacha20poly1305_ietf_encrypt_detached();
+    //public static native int crypto_aead_chacha20poly1305_ietf_decrypt_detached();
 
     public static final int crypto_aead_chacha20poly1305_KEYBYTES = 32;
     public static final int crypto_aead_chacha20poly1305_NSECBYTES = 0;
@@ -120,8 +120,8 @@ public final class Sodium {
                                                                   byte[] publicMessage,
                                                                   byte[] nonce,
                                                                   byte[] key);
-    public static native int crypto_aead_chacha20poly1305_encrypt_detached();
-    public static native int crypto_aead_chacha20poly1305_decrypt_detached();
+    //public static native int crypto_aead_chacha20poly1305_encrypt_detached();
+    //public static native int crypto_aead_chacha20poly1305_decrypt_detached();
 
     public static final int crypto_aead_chacha20poly1305_IETF_KEYBYTES = crypto_aead_chacha20poly1305_ietf_KEYBYTES;
     public static final int crypto_aead_chacha20poly1305_IETF_NSECBYTES = crypto_aead_chacha20poly1305_ietf_NSECBYTES;
@@ -192,7 +192,7 @@ public final class Sodium {
     public static final int crypto_box_curve25519xsalsa20poly1305_MACBYTES = 16;
     public static final int crypto_box_curve25519xsalsa20poly1305_BOXZEROBYTES = 16;
     public static final int crypto_box_curve25519xsalsa20poly1305_ZEROBYTES = crypto_box_curve25519xsalsa20poly1305_BOXZEROBYTES + crypto_box_curve25519xsalsa20poly1305_MACBYTES;
-
+    /*
     public static native int crypto_box_curve25519xsalsa20poly1305();
     public static native int crypto_box_curve25519xsalsa20poly1305_open();
     public static native int crypto_box_curve25519xsalsa20poly1305_seed_keypair();
@@ -200,7 +200,7 @@ public final class Sodium {
     public static native int crypto_box_curve25519xsalsa20poly1305_beforenm();
     public static native int crypto_box_curve25519xsalsa20poly1305_afternm();
     public static native int crypto_box_curve25519xsalsa20poly1305_open_afternm();
-
+*/
     //#include "sodium/crypto_box.h"
 
     public static final int crypto_box_SEEDBYTES = crypto_box_curve25519xsalsa20poly1305_SEEDBYTES;
@@ -300,12 +300,12 @@ public final class Sodium {
     public static final int crypto_generichash_blake2b_SALTBYTES = 16;
     public static final int crypto_generichash_blake2b_PERSONALBYTES = 16;
 
-    public static native int crypto_generichash_blake2b_statebytes();
+    //public static native int crypto_generichash_blake2b_statebytes();
 
-    public static native int crypto_generichash_blake2b();
-    public static native int crypto_generichash_blake2b_salt_personal();
+   // public static native int crypto_generichash_blake2b();
+   // public static native int crypto_generichash_blake2b_salt_personal();
     public static native int crypto_generichash_blake2b_init();
-    public static native int crypto_generichash_blake2b_init_salt_personal();
+    //public static native int crypto_generichash_blake2b_init_salt_personal();
     public static native int crypto_generichash_blake2b_update();
     public static native int crypto_generichash_blake2b_final();
 
@@ -318,7 +318,7 @@ public final class Sodium {
     public static final int crypto_generichash_KEYBYTES_MAX = crypto_generichash_blake2b_KEYBYTES_MAX;
     public static final int crypto_generichash_KEYBYTES = crypto_generichash_blake2b_KEYBYTES;
     public static final String crypto_generichash_PRIMITIVE = "blake2b";
-
+/**
     public static int crypto_generichash() {
         return crypto_generichash_blake2b();
     }
@@ -334,7 +334,7 @@ public final class Sodium {
     public static int crypto_generichash_final() {
         return crypto_generichash_blake2b_final();
     }
-
+*/
 
 
 
@@ -375,11 +375,11 @@ public final class Sodium {
     public static final int crypto_onetimeauth_poly1305_BYTES = 16;
     public static final int crypto_onetimeauth_poly1305_KEYBYTES = 32;
 
-    public static native int crypto_onetimeauth_poly1305();
-    public static native int crypto_onetimeauth_poly1305_verify();
-    public static native int crypto_onetimeauth_poly1305_init();
-    public static native int crypto_onetimeauth_poly1305_update();
-    public static native int crypto_onetimeauth_poly1305_final();
+    //public static native int crypto_onetimeauth_poly1305();
+    //public static native int crypto_onetimeauth_poly1305_verify();
+    //public static native int crypto_onetimeauth_poly1305_init();
+    //public static native int crypto_onetimeauth_poly1305_update();
+    //public static native int crypto_onetimeauth_poly1305_final();
 
     //#include "sodium/crypto_onetimeauth.h"
 
@@ -387,11 +387,11 @@ public final class Sodium {
     public static final int crypto_onetimeauth_KEYBYTES = crypto_onetimeauth_poly1305_KEYBYTES;
     public static final String crypto_onetimeauth_PRIMITIVE = "poly1305";
 
-    public static native int crypto_onetimeauth();
-    public static native int crypto_onetimeauth_verify();
-    public static native int crypto_onetimeauth_init();
-    public static native int crypto_onetimeauth_update();
-    public static native int crypto_onetimeauth_final();
+    //public static native int crypto_onetimeauth();
+    //public static native int crypto_onetimeauth_verify();
+    //public static native int crypto_onetimeauth_init();
+    //public static native int crypto_onetimeauth_update();
+    //public static native int crypto_onetimeauth_final();
 
 
     //#include "sodium/crypto_pwhash_argon2i.h"
@@ -407,9 +407,9 @@ public final class Sodium {
     public static final long crypto_pwhash_argon2i_OPSLIMIT_SENSITIVE = 8;
     public static final long crypto_pwhash_argon2i_MEMLIMIT_SENSITIVE = 536870912;
 
-    public static native int crypto_pwhash_argon2i();
-    public static native int crypto_pwhash_argon2i_str();
-    public static native int crypto_pwhash_argon2i_str_verify();
+    //public static native int crypto_pwhash_argon2i();
+   // public static native int crypto_pwhash_argon2i_str();
+    //public static native int crypto_pwhash_argon2i_str_verify();
 
     //#include "sodium/crypto_pwhash.h"
 
@@ -425,9 +425,9 @@ public final class Sodium {
     public static final long crypto_pwhash_OPSLIMIT_SENSITIVE = crypto_pwhash_argon2i_OPSLIMIT_SENSITIVE;
     public static final long crypto_pwhash_MEMLIMIT_SENSITIVE = crypto_pwhash_argon2i_MEMLIMIT_SENSITIVE;
 
-    public static native int crypto_pwhash();
-    public static native int crypto_pwhash_str();
-    public static native int crypto_pwhash_str_verify();
+    //public static native int crypto_pwhash();
+   // public static native int crypto_pwhash_str();
+    //public static native int crypto_pwhash_str_verify();
 
     //#include "sodium/crypto_pwhash_scryptsalsa208sha256.h"
 
@@ -439,10 +439,10 @@ public final class Sodium {
     public static final long crypto_pwhash_scryptsalsa208sha256_OPSLIMIT_SENSITIVE = 33554432;
     public static final long crypto_pwhash_scryptsalsa208sha256_MEMLIMIT_SENSITIVE = 1073741824;
 
-    public static native int crypto_pwhash_scryptsalsa208sha256();
-    public static native int crypto_pwhash_scryptsalsa208sha256_str();
-    public static native int crypto_pwhash_scryptsalsa208sha256_str_verify();
-    public static native int crypto_pwhash_scryptsalsa208sha256_ll();
+    //public static native int crypto_pwhash_scryptsalsa208sha256();
+    //public static native int crypto_pwhash_scryptsalsa208sha256_str();
+    //public static native int crypto_pwhash_scryptsalsa208sha256_str_verify();
+    //public static native int crypto_pwhash_scryptsalsa208sha256_ll();
 
     //#include "sodium/crypto_scalarmult_curve25519.h"
 
@@ -475,8 +475,8 @@ public final class Sodium {
     public static final int crypto_secretbox_xsalsa20poly1305_ZEROBYTES =
             crypto_secretbox_xsalsa20poly1305_BOXZEROBYTES + crypto_secretbox_xsalsa20poly1305_MACBYTES;
 
-    public static native int crypto_secretbox_xsalsa20poly1305();
-    public static native int crypto_secretbox_xsalsa20poly1305_open();
+    //public static native int crypto_secretbox_xsalsa20poly1305();
+    //public static native int crypto_secretbox_xsalsa20poly1305_open();
 
     //#include "sodium/crypto_secretbox.h"
 
@@ -485,41 +485,45 @@ public final class Sodium {
     public static final int crypto_secretbox_MACBYTES = crypto_secretbox_xsalsa20poly1305_MACBYTES;
     public static final String crypto_secretbox_PRIMITIVE = "xsalsa20poly1305";
 
-    public static native int crypto_secretbox_easy();
-    public static native int crypto_secretbox_open_easy();
-    public static native int crypto_secretbox_detached();
-    public static native int crypto_secretbox_open_detached();
+    // to call crypto_secretbox_easy(ciphertext, MESSAGE, MESSAGE_LEN, nonce, key);
+    public static native int crypto_secretbox_easy(byte[] ciphertext, byte[] plaintext, byte[] nonce, byte[] sharedKey);
+    //crypto_secretbox_open_easy(decrypted, ciphertext, CIPHERTEXT_LEN, nonce, key)
+    public static native int crypto_secretbox_open_easy(byte[] plaintext, byte[] ciphertext, byte[] nonce, byte[] sharedKey);
+    
+    //public static native int crypto_secretbox_detached();
+    //public static native int crypto_secretbox_open_detached();
 
     /* -- NaCl compatibility interface ; Requires padding -- */
 
     public static final int crypto_secretbox_ZEROBYTES = crypto_secretbox_xsalsa20poly1305_ZEROBYTES;
     public static final int crypto_secretbox_BOXZEROBYTES = crypto_secretbox_xsalsa20poly1305_BOXZEROBYTES;
 
-    public static native int crypto_secretbox();
-    public static native int crypto_secretbox_open();
+    //public static native int crypto_secretbox();
+    //public static native int crypto_secretbox_open();
 
     //#include "sodium/crypto_shorthash_siphash24.h"
 
     public static final int crypto_shorthash_siphash24_BYTES = 8;
     public static final int crypto_shorthash_siphash24_KEYBYTES = 16;
 
-    public static native int crypto_shorthash_siphash24();
+    //public static native int crypto_shorthash_siphash24();
 
     //#include "sodium/crypto_shorthash.h"
-
+/*
     public static final int crypto_shorthash_BYTES = crypto_shorthash_siphash24_BYTES;
     public static final int crypto_shorthash_KEYBYTES = crypto_shorthash_siphash24_KEYBYTES;
     public static final String crypto_shorthash_PRIMITIVE = "siphash24";
 
     public static native int crypto_shorthash();
+*/
 
     //#include "sodium/crypto_sign_ed25519.h"
-
+  
     public static final int crypto_sign_ed25519_BYTES = 64;
     public static final int crypto_sign_ed25519_SEEDBYTES = 32;
     public static final int crypto_sign_ed25519_PUBLICKEYBYTES = 32;
     public static final int crypto_sign_ed25519_SECRETKEYBYTES = 32 + 32;
-
+    /*
     public static native int crypto_sign_ed25519();
     public static native int crypto_sign_ed25519_open();
     public static native int crypto_sign_ed25519_detached();
@@ -530,7 +534,7 @@ public final class Sodium {
     public static native int crypto_sign_ed25519_sk_to_curve25519();
     public static native int crypto_sign_ed25519_sk_to_seed();
     public static native int crypto_sign_ed25519_sk_to_pk();
-
+*/
     //#include "sodium/crypto_sign.h"
 
     public static final int crypto_sign_BYTES = crypto_sign_ed25519_BYTES;
@@ -547,7 +551,7 @@ public final class Sodium {
     public static native int crypto_sign_verify_detached(byte[] signature, byte[] message, byte[] publicKey);
 
     //#include "sodium/crypto_stream_aes128ctr.h"
-
+    /*
     public static final int crypto_stream_aes128ctr_KEYBYTES = 16;
     public static final int crypto_stream_aes128ctr_NONCEBYTES = 16;
     public static final int crypto_stream_aes128ctr_BEFORENMBYTES = 1408;
@@ -557,28 +561,28 @@ public final class Sodium {
     public static native int crypto_stream_aes128ctr_beforenm();
     public static native int crypto_stream_aes128ctr_afternm();
     public static native int crypto_stream_aes128ctr_xor_afternm();
-
+*/
 
     //#include "sodium/crypto_stream_chacha20.h"
-
+    /*
     public static final int crypto_stream_chacha20_KEYBYTES = 32;
     public static final int crypto_stream_chacha20_NONCEBYTES = 8;
 
     public static native int crypto_stream_chacha20();
     public static native int crypto_stream_chacha20_xor();
     public static native int crypto_stream_chacha20_xor_ic();
-
+*/
     /* ChaCha20 with a 96-bit nonce and a 32-bit counter (IETF) */
-
+    /*
     public static final int crypto_stream_chacha20_IETF_NONCEBYTES = 12;
 
     public static native int crypto_stream_chacha20_ietf();
     public static native int crypto_stream_chacha20_ietf_xor();
     public static native int crypto_stream_chacha20_ietf_xor_ic();
-
+*/
 
     //#include "sodium/crypto_stream_salsa20.h"
-
+/*
     public static final int crypto_stream_salsa20_KEYBYTES = 32;
     public static final int crypto_stream_salsa20_NONCEBYTES = 8;
 
@@ -637,7 +641,7 @@ public final class Sodium {
     public static final int crypto_verify_64_BYTES = 64;
 
     public static native int crypto_verify_64();
-
+*/
     //#include "sodium/randombytes.h"
     // coverted
 
@@ -647,8 +651,8 @@ public final class Sodium {
     public static native void randombytes_stir();
     public static native int randombytes_close();
 
-    public static native int randombytes_set_implementation();
-    public static native String randombytes_implementation_name();
+    //public static native int randombytes_set_implementation();
+    //public static native String randombytes_implementation_name();
 
     /* -- NaCl compatibility interface -- */
 
@@ -659,7 +663,7 @@ public final class Sodium {
 
 
     //#include "sodium/runtime.h"
-
+/*
     public static native int sodium_runtime_has_neon();
     public static native int sodium_runtime_has_sse2();
     public static native int sodium_runtime_has_sse3();
@@ -669,7 +673,7 @@ public final class Sodium {
     public static native int sodium_runtime_has_avx2();
     public static native int sodium_runtime_has_pclmul();
     public static native int sodium_runtime_has_aesni();
-
+*/
     //#include "sodium/utils.h"
     //#include "sodium/version.h"
 

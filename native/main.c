@@ -21,6 +21,68 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_sodium_1init(JNIEnv *env,
 
 /*
  * Class:     com_naphaso_jsodium_Sodium
+ * Method:    crypto_secretbox_easy
+ * Signature: ([B[B[B[B)I
+ */
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1secretbox_1easy
+  (JNIEnv *env, jclass clazz, jbyteArray ciphertext, jbyteArray plaintext, jbyteArray nonce, jbyteArray sharedKey){
+
+    // to call crypto_secretbox_easy(ciphertext, MESSAGE, MESSAGE_LEN, nonce, key);
+    // public static native int crypto_secretbox_easy(byte[] ciphertext, byte[] plaintext, byte[] nonce, byte[] sharedKey);
+    size_t ciphertext_len = GET_BYTES_SIZE(ciphertext);
+    unsigned char *ciphertext_bytes = GET_BYTES(ciphertext);
+    size_t message_len = GET_BYTES_SIZE(plaintext);
+    unsigned char *message_bytes = GET_BYTES(plaintext);
+    unsigned char *nonce_bytes = GET_BYTES(nonce);
+    unsigned char *key_bytes = GET_BYTES(sharedKey);
+
+	int result = crypto_secretbox_easy(ciphertext_bytes, message_bytes, message_len, nonce_bytes, key_bytes);
+    RELEASE_BYTES(ciphertext, ciphertext_bytes);
+    RELEASE_BYTES(plaintext, message_bytes);
+    RELEASE_BYTES(nonce, nonce_bytes);
+    RELEASE_BYTES(sharedKey, key_bytes);
+
+    if(result < 0) {
+        return result;
+    } else {
+        return 0;
+    }
+}
+
+/*
+ * Class:     com_naphaso_jsodium_Sodium
+ * Method:    crypto_secretbox_open_easy
+ * Signature: ([B[B[B[B)I
+ */
+JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1secretbox_1open_1easy
+  (JNIEnv *env, jclass clazz, jbyteArray plaintext, jbyteArray ciphertext, jbyteArray nonce, jbyteArray sharedKey){
+
+      	size_t ciphertext_len = GET_BYTES_SIZE(ciphertext);
+	    unsigned char *ciphertext_bytes = GET_BYTES(ciphertext);
+	    size_t message_len = GET_BYTES_SIZE(plaintext);
+	    unsigned char *message_bytes = GET_BYTES(plaintext);
+	    unsigned char *nonce_bytes = GET_BYTES(nonce);
+	    unsigned char *key_bytes = GET_BYTES(sharedKey);
+
+		int result = crypto_secretbox_open_easy(message_bytes, ciphertext_bytes, ciphertext_len, nonce_bytes, key_bytes);
+        // crypto_secretbox_open_easy(byte[] plaintext, byte[] ciphertext, byte[] nonce, byte[] sharedKey);
+		// int result = crypto_secretbox_easy(ciphertext_bytes, message_bytes, message_len, nonce_bytes, key_bytes);
+	    RELEASE_BYTES(ciphertext, ciphertext_bytes);
+	    RELEASE_BYTES(plaintext, message_bytes);
+	    RELEASE_BYTES(nonce, nonce_bytes);
+	    RELEASE_BYTES(sharedKey, key_bytes);
+
+    	    if(result < 0) {
+    	        return result;
+    	    } else {
+    	        return 0;
+    	    }
+}
+
+
+
+/*
+ * Class:     com_naphaso_jsodium_Sodium
  * Method:    crypto_aead_aes256gcm_is_available
  * Signature: ()I
  */
@@ -1682,25 +1744,6 @@ JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1secretbox_1xsalsa
   return 0;
 }
 
-
-/*
- * Class:     com_naphaso_jsodium_Sodium
- * Method:    crypto_secretbox_easy
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1secretbox_1easy(JNIEnv *env, jclass clazz) {
-  return 0;
-}
-
-
-/*
- * Class:     com_naphaso_jsodium_Sodium
- * Method:    crypto_secretbox_open_easy
- * Signature: ()I
- */
-JNIEXPORT jint JNICALL Java_com_naphaso_jsodium_Sodium_crypto_1secretbox_1open_1easy(JNIEnv *env, jclass clazz) {
-  return 0;
-}
 
 
 /*

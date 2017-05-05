@@ -8,7 +8,7 @@ import org.junit.Test;
  */
 public class CryptoBoxTest extends TestCase {
     public static int PLAINTEXT_SIZE = 4000;
-
+    
     @Test
     public void test_crypto_box_easy() {
         byte[] alicePrivateKey = new byte[Sodium.crypto_box_SECRETKEYBYTES];
@@ -159,4 +159,21 @@ public class CryptoBoxTest extends TestCase {
 
         assertEquals(Utils.encode(plaintext1), Utils.encode(plaintext2));
     }
+    @Test
+    public void test_crypto_secretbox_easy() {
+
+          byte[] nonce = new byte[Sodium.crypto_box_NONCEBYTES];
+          byte[] plaintext1 = new byte[PLAINTEXT_SIZE];
+          byte[] plaintext2 = new byte[PLAINTEXT_SIZE];
+          byte[] ciphertext = new byte[PLAINTEXT_SIZE + Sodium.crypto_box_MACBYTES];
+          byte[] sharedKey = new byte[Sodium.crypto_secretbox_KEYBYTES];
+
+          Sodium.randombytes_buf(plaintext1);
+          Sodium.randombytes_buf(nonce);
+          Sodium.randombytes_buf(sharedKey);
+          
+          assertEquals(Sodium.crypto_secretbox_easy(ciphertext, plaintext1, nonce, sharedKey), 0);
+          assertEquals(Sodium.crypto_secretbox_open_easy(plaintext2, ciphertext, nonce, sharedKey), 0);
+          assertEquals(Utils.encode(plaintext1), Utils.encode(plaintext2));
+	}
 }
